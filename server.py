@@ -1,21 +1,23 @@
+#!/usr/bin/env python
+"""Django's command-line utility for administrative tasks."""
 import os
-from flask import Flask, send_from_directory, render_template, redirect
+import sys
 
-app = Flask(__name__)
 
-port = int(os.environ.get("PORT", 5000))
+def main():
+    """Run administrative tasks."""
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'admin_soeta.settings')
+    try:
+        from django.core.management import execute_from_command_line
+    except ImportError as exc:
+        raise ImportError(
+            "Couldn't import Django. Are you sure it's installed and "
+            "available on your PYTHONPATH environment variable? Did you "
+            "forget to activate a virtual environment?"
+        ) from exc
+    execute_from_command_line(["", "runserver"])
 
-@app.route('/static/<path:path>')
-def serve_static(path):
-    return send_from_directory('static', path)
 
-@app.route('/')
-def home():
-   return render_template('index.html')
 
-@app.route('/<path:path>')
-def all_routes(path):
-    return redirect('/')
-
-if __name__ == "__main__":
-    app.run(port=port)
+if __name__ == '__main__':
+    main()
