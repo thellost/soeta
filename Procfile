@@ -1,1 +1,1 @@
-web: django server:app
+web: python3 server:app
