@@ -11,6 +11,7 @@ RUN apk update \
     && apk add postgresql-dev gcc python3-dev musl-dev
 
 # install dependencies
+sudo apt install libcairo2-dev pkg-config python3-dev
 COPY requirements.txt /app/requirements.txt
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
