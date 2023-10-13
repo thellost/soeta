@@ -1,4 +1,4 @@
-FROM python:3.10-alpine
+FROM python:3.10
 
 WORKDIR /app
 
@@ -6,12 +6,9 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# install psycopg2 dependencies
-RUN apk update \
-    && apk add postgresql-dev gcc python3-dev musl-dev
 
 # install dependencies
-RUN apk add libcairo2-dev pkg-config python3-dev
+RUN apt install libcairo2-dev pkg-config python3-dev
 COPY requirements.txt /app/requirements.txt
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
