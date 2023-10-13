@@ -8,7 +8,7 @@ ENV PYTHONUNBUFFERED 1
 
 
 # install dependencies
-RUN apt-get install libcairo2-dev pkg-config python3-dev
+RUN apt-get install libcairo2-dev pkg-config
 COPY requirements.txt /app/requirements.txt
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
