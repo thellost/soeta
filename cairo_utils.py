@@ -323,6 +323,6 @@ def create_reports(data):
 
         context.stroke()
 
-    return surface
+    return path
 
 

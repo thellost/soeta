@@ -179,7 +179,10 @@ def reports(request):
         data["subriksa"] = request.POST.getlist("subriksa")[0]
         data["date"] = request.POST.getlist("date")[0]
         data["shift"] = request.POST.getlist("shift")[0]
-        create_reports(data)
+        path = create_reports(data)
+        response = FileResponse(open(path, 'rb'))
+        return response
+
     template = loader.get_template('reports.html')
     return HttpResponse(template.render({}, request))
 
