@@ -117,6 +117,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#FIREBASE CONFIG
 firebaseConfig = {
     "apiKey": "AIzaSyDd3guF5o7PMhiKCs6kVvvR8_ZnlejCKDQ",
     "authDomain": "admin-soeta.firebaseapp.com",
@@ -126,3 +128,6 @@ firebaseConfig = {
     "appId": "1:358891069709:web:a44fc470bb48bf5ae35044",
     "measurementId": "G-VX1NE6BJ7N"
 }
+
+#TRUSTED ORIGIN
+CSRF_TRUSTED_ORIGINS = ['https://warwick-redback-rfac.1.sg-1.fl0.io']
