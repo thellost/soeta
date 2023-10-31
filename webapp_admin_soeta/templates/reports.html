@@ -414,11 +414,9 @@
             
             <script>
             function generateSelect2(){
-              console.log(user_Data)
               user_Data.then((data) => {
               $('.js-example-basic-single').each(function() {
                   // do a lot of things here
-                  console.log(data)
                   $(this).select2({ tags:true, data: data });
               })
             });
