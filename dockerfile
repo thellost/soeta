@@ -1,6 +1,6 @@
 FROM python:3.10
 
-WORKDIR .
+WORKDIR /
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
