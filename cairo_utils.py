@@ -182,6 +182,14 @@ def text_box(context, text, sub_text, pos, font_family="Arial", font_size=45, su
     return rect_x, rect_y, rect_width, rect_height, height, font_size
 
 
+def scaled_text(context, cur_scale, rect_width, text_width, text):
+    context.save()
+    context.scale((1 / cur_scale) * 1, 1)
+    context.scale((rect_width / text_width), 1)
+    context.show_text(text)
+    context.restore()
+
+
 def counter_box(context, counter_name, staff, pos, OUTLINE=100, SCREEN_WIDTH=3508, gap_x=50, rect_dim=None,
                 font_family="Arial", font_size=45, subtext_font_size=35, font_weight=cairo.FONT_WEIGHT_BOLD):
     context.save()
@@ -205,7 +213,7 @@ def counter_box(context, counter_name, staff, pos, OUTLINE=100, SCREEN_WIDTH=350
     rect_width = (l_width + font_size + l_height)
     print(dx)
     total_width = (rect_width + gap_x) * (total_counter)
-    scale = 1
+
     if (posx - OUTLINE < total_width):
         print(total_width)
         print(posx - OUTLINE)
@@ -213,24 +221,32 @@ def counter_box(context, counter_name, staff, pos, OUTLINE=100, SCREEN_WIDTH=350
         print(scale)
         context.scale(scale, 1)
         posx = posx * (1 / scale)
+        is_scaled = True
 
     # setting of line width
     context.set_line_width(7)
-
+    scaled_rect_width = rect_width * scale - font_size
+    print("width", rect_width)
+    print("counter len", len(counter_name))
     for idx, text in counter_name.items():
         # approximate text height
         xbearing, ybearing, width, height, dx, dy = context.text_extents(text)
 
         temp_text = text.split()
         if (len(temp_text) > 2):
-            context.move_to(posx - width / 2, posy + paragraph_margin - (font_size / 3))
-            context.show_text(temp_text[0] + " " + temp_text[1])
+            xbearing, ybearing, width, height, dx, dy = context.text_extents(temp_text[0] + " " + temp_text[1])
+            scaled_width = width * (1 / scale) * (scaled_rect_width / width)
+            context.move_to(posx - scaled_width / 2, posy + paragraph_margin - (font_size / 3))
+            scaled_text(context, scale, scaled_rect_width, width, temp_text[0] + " " + temp_text[1])
             context.move_to(posx - width / 2, posy + paragraph_margin + (font_size / 1.5))
-            context.show_text(temp_text[2])
+            scaled_text(context, scale, scaled_rect_width, width, temp_text[2])
             paragraph_margin += height + font_size
+        elif (len(temp_text) < 1):
+            pass
         else:
-            context.move_to(posx - width / 2, posy + paragraph_margin)
-            context.show_text(text)
+            scaled_width = width * (1 / scale) * (scaled_rect_width / width)
+            context.move_to(posx - scaled_width / 2, posy + paragraph_margin)
+            scaled_text(context, scale, scaled_rect_width, width, text)
             paragraph_margin += height + font_size
 
         rect_height = (paragraph_margin + (font_size))
@@ -274,7 +290,6 @@ def counter_box(context, counter_name, staff, pos, OUTLINE=100, SCREEN_WIDTH=350
     context.restore()
 
     return rect_width
-
 
 def create_reports(data):
     SCREEN_WIDTH = data.get("screen_width", 4000)
