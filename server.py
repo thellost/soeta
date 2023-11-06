@@ -17,6 +17,8 @@ def main():
         ) from exc
     execute_from_command_line(["", "runserver","0.0.0.0:8000"])
 
+    execute_from_command_line(["", "collectstatic", "--noinput"])
+
 
 
 if __name__ == '__main__':
