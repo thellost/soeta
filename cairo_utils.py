@@ -311,7 +311,6 @@ def create_reports(data):
     COUNTER_STAFF = data.get("counter_staff")
     COUNTER_X = data.get("counter_x")
     COUNTER_Y = data.get("counter_y")
-    POSITION = data.get("position")
     GAP_X = 0
     filename = TITLE+data.get("riksa","default riksa")+"sub"+data.get("subriksa", "default subriksa")+''.join(filter(str.isalnum, DATE))+SHIFT+ ".pdf"
     path: str = "productionfiles/reports/" + filename
@@ -331,7 +330,7 @@ def create_reports(data):
                      font_size=FONT_SIZE,
                      subtext_font_size=SUBTEXT_FONT_SIZE)
 
-        counter_box(context, COUNTER_NO, COUNTER_STAFF, POSITION,
+        counter_box(context, COUNTER_NO, COUNTER_STAFF, (COUNTER_X, COUNTER_Y),
                     gap_x=GAP_X,
                     font_size=FONT_SIZE - 5,
                     subtext_font_size=10,
