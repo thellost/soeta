@@ -78,7 +78,7 @@ def create_employees_document(fields):
 
     try:
         user = auth.create_user(
-            email=f"{fields['email']}",
+            email=f"dummy@gmail.com",
             email_verified=False,
             password=f"123456",
             display_name=f"{fields['nickname']}",
