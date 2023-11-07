@@ -85,7 +85,7 @@ def create_employees_document(fields):
             disabled=False)
     except Exception as e:
         print(e)
-        return e
+        return db.collection("employees").add(fields)
 
     return db.collection("employees").add(fields)
 
