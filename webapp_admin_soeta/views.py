@@ -200,7 +200,6 @@ def listing_api(request):
     page_obj = paginator.get_page(page_number)
     data = [{"nip": emp["nip"],
              "full_name": emp["full_name"],
-             "email": emp["email"],
              "nickname": emp["nickname"],
              "riksa": emp["riksa"],
              "subriksa": emp["subriksa"]
