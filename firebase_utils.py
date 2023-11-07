@@ -77,12 +77,7 @@ def create_employees_document(fields):
         return "Already Exist"
 
     try:
-        user = auth.create_user(
-            email=f"dummy@gmail.com",
-            email_verified=False,
-            password=f"123456",
-            display_name=f"{fields['nickname']}",
-            disabled=False)
+        return db.collection("employees").add(fields)
     except Exception as e:
         print(e)
         return db.collection("employees").add(fields)
